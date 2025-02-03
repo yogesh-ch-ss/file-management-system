@@ -15,8 +15,19 @@ public class FileTest {
 
         coursework.add(unittests);
         coursework.remove(courseworkzip);
-        System.out.println(coursework.display("\t"));
 
-        // System.out.println(coursework.search("unit test 1").getName());
+        Directory buffer = new Directory("buffer");
+        File bufferfile = new File("buffer file", 1);
+
+        buffer.add(bufferfile);
+        unittests.add(buffer);
+
+        System.out.println(coursework.display("-"));
+
+        // coursework.printItemsInThisDirectory();
+
+        System.out.println(coursework.search("courseworkpdf").getName());
+        System.out.println(coursework.search("unit test 1").getName());
+        System.out.println(coursework.search("buffer file").getName());
     }
 }

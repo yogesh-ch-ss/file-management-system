@@ -29,13 +29,16 @@ public class File implements Component {
 
     @Override
     public String display(String prefix) {
-        return String.format("%s%s (%d)", prefix, this.getName(), this.getSize());
+        return String.format("%s (%d)\n", this.getName(), this.getSize());
     }
 
     @Override
     public Component search(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
+        if (this.getName() == name) {
+            return this;
+        } else {
+            return null;
+        }
     }
 
 }

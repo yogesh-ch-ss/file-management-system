@@ -47,14 +47,20 @@ public class Directory implements Component {
         return this.count;
     }
 
+    public void printItemsInThisDirectory() {
+        for (int i = 0; i < this.items.size(); i++) {
+            System.out.println(this.items.get(i).getName());
+        }
+    }
+
     @Override
     public String display(String prefix) {
 
         String output = "";
+        output += String.format("%s: (count=%d, size=%d)\n", this.getName(), this.getCount(), this.getSize());
 
         for (int i = 0; i < this.items.size(); i++) {
-            output += String.format("%s (count=%d, size=%d)\n", this.getName(), this.getCount(), this.getSize());
-            output+= this.items.get(i).display(prefix);
+            output += this.items.get(i).display(prefix);
         }
 
         return output;
@@ -62,8 +68,19 @@ public class Directory implements Component {
 
     @Override
     public Component search(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
+
+        for (int i = 0; i < this.items.size(); i++) {
+            if (this.items.get(i).search(name) != null && this.items.get(i).search(name).getName() == name) {
+                return this;
+            } else if (this.items.get(i).search(name) != null) {
+                return this.items.get(i).search(name);
+            } else {
+                continue;
+            }
+        }
+
+        return null;
+
     }
 
 }
