@@ -22,7 +22,7 @@ public class FileTest {
         buffer.add(bufferfile);
         unittests.add(buffer);
 
-        System.out.println(coursework.display("-"));
+        System.out.println(coursework.display("+-"));
 
         // coursework.printItemsInThisDirectory();
 

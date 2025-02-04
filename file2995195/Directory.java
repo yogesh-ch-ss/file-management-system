@@ -6,30 +6,22 @@ import java.util.ArrayList;
 public class Directory implements Component {
 
     private String name;
-    private int size;
-    private int count;
     private ArrayList<Component> items;
 
     // Constructor.
     public Directory(String name) {
         this.name = name;
-        this.size = 0;
-        this.count = 0;
         this.items = new ArrayList<Component>();
     }
 
     // Adding a file/directory in a directory.
     public void add(Component c) {
         this.items.add(c);
-        this.size += c.getSize();
-        this.count++;
     }
 
     // Removing a file/directory in a directory.
     public void remove(Component c) {
         this.items.remove(c);
-        this.size -= c.getSize();
-        this.count--;
     }
 
     @Override
@@ -39,12 +31,24 @@ public class Directory implements Component {
 
     @Override
     public int getSize() {
-        return this.size;
+        int sizeOfDir = 0;
+
+        for (int i = 0; i < this.items.size(); i++) {
+            sizeOfDir += this.items.get(i).getSize();
+        }
+
+        return sizeOfDir;
     }
 
     @Override
     public int getCount() {
-        return this.count;
+        int countOfDir = 0;
+
+        for (int i = 0; i < this.items.size(); i++) {
+            countOfDir += this.items.get(i).getCount();
+        }
+
+        return countOfDir;
     }
 
     public void printItemsInThisDirectory() {
@@ -56,21 +60,38 @@ public class Directory implements Component {
     @Override
     public String display(String prefix) {
 
+        return this.displayHelper(prefix, 0);
+    }
+
+    public String displayHelper(String prefix, int level) {
         String output = "";
-        output += String.format("%s: (count=%d, size=%d)\n", this.getName(), this.getCount(), this.getSize());
+        String currentPrefix = "";
+        for (int i = 0; i < level; i++) {
+            currentPrefix += prefix;
+        }
+
+        output += String.format("%s%s: (count=%d, size=%d)\n", currentPrefix, this.getName(), this.getCount(),
+                this.getSize());
 
         for (int i = 0; i < this.items.size(); i++) {
-            output += this.items.get(i).display(prefix);
+            if (this.items.get(i) instanceof Directory) {
+                output += ((Directory) this.items.get(i)).displayHelper(prefix, level + 1);
+            } else {
+
+                output += ((File) this.items.get(i)).displayHelper(prefix, level + 1);
+            }
         }
 
         return output;
+
     }
 
     @Override
     public Component search(String name) {
 
         for (int i = 0; i < this.items.size(); i++) {
-            if (this.items.get(i).search(name) != null && this.items.get(i).search(name).getName() == name) {
+            if (this.items.get(i).search(name) != null
+                    && this.items.get(i).search(name).getName().equals(name)) {
                 return this;
             } else if (this.items.get(i).search(name) != null) {
                 return this.items.get(i).search(name);

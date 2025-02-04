@@ -24,12 +24,22 @@ public class File implements Component {
 
     @Override
     public int getCount() {
-        return 0;
+        // If getCount() of an object is -1, it is a file,
+        // Else, it is a directory.
+        return 1;
     }
 
     @Override
     public String display(String prefix) {
-        return String.format("%s (%d)\n", this.getName(), this.getSize());
+        return this.displayHelper(prefix, 0);
+    }
+
+    public String displayHelper(String prefix, int level) {
+        String currentPrefix = "";
+        for (int i = 0; i < level; i++) {
+            currentPrefix += prefix;
+        }
+        return String.format("%s%s (%d)\n", currentPrefix, this.getName(), this.getSize());
     }
 
     @Override
