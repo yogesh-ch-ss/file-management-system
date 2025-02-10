@@ -42,6 +42,7 @@ public class File implements Component {
         return String.format("%s%s (%d)\n", currentPrefix, this.getName(), this.getSize());
     }
 
+    // Search returns the file object of the searched file.
     @Override
     public Component search(String name) {
         if (this.getName() == name) {

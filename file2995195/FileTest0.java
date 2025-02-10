@@ -1,6 +1,6 @@
 package file2995195;
 
-public class FileTest {
+public class FileTest0 {
     public static void main(String[] args) {
         File courseworkpdf = new File("courseworkpdf", 1);
         File courseworkzip = new File("coursework zip file", 2);
@@ -15,8 +15,24 @@ public class FileTest {
 
         coursework.add(unittests);
         coursework.remove(courseworkzip);
+
+        Directory buffer = new Directory("buffer");
+        File bufferfile = new File("buffer file", 1);
+
+        buffer.add(bufferfile);
+        unittests.add(buffer);
+
         System.out.println(coursework.display("\t"));
 
+        // coursework.printItemsInThisDirectory();
+
+        System.out.println(coursework.search("courseworkpdf").getName());
         System.out.println(coursework.search("unit test 1").getName());
+        System.out.println(coursework.search("buffer file").getName());
+        System.out.println();
+
+        unittests.remove(buffer);
+        System.out.println(coursework.display("\t"));
+
     }
 }

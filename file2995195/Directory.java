@@ -77,7 +77,6 @@ public class Directory implements Component {
             if (this.items.get(i) instanceof Directory) {
                 output += ((Directory) this.items.get(i)).displayHelper(prefix, level + 1);
             } else {
-
                 output += ((File) this.items.get(i)).displayHelper(prefix, level + 1);
             }
         }
@@ -86,14 +85,28 @@ public class Directory implements Component {
 
     }
 
+    // Search return s the directory of the found file.
     @Override
     public Component search(String name) {
 
         for (int i = 0; i < this.items.size(); i++) {
+            /*
+             * If we get a file object, then it is the searched file,
+             * therefore, return the current directory as the current directory contains the
+             * searched file.
+             */
+            /*
+             * If we get a directory object, then it is the directory in which the file is
+             * present,
+             * therefore, return the obtained directory as it is.
+             */
+
             if (this.items.get(i).search(name) != null
+                    && this.items.get(i).search(name) instanceof File
                     && this.items.get(i).search(name).getName().equals(name)) {
                 return this;
-            } else if (this.items.get(i).search(name) != null) {
+            } else if (this.items.get(i).search(name) != null
+                    && this.items.get(i).search(name) instanceof Directory) {
                 return this.items.get(i).search(name);
             } else {
                 continue;
