@@ -22,7 +22,7 @@ public class FileTest0 {
         buffer.add(bufferfile);
         unittests.add(buffer);
 
-        System.out.println(coursework.display("\t"));
+        System.out.println(coursework.display("-"));
 
         // coursework.printItemsInThisDirectory();
 
@@ -32,7 +32,10 @@ public class FileTest0 {
         System.out.println();
 
         unittests.remove(buffer);
-        System.out.println(coursework.display("\t"));
+        System.out.println(coursework.display("-"));
+
+        coursework.remove(courseworkpdf);
+        System.out.println(coursework.display("-"));
 
     }
 }

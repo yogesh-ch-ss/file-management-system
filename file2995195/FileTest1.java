@@ -23,6 +23,7 @@ public class FileTest1 {
 
         // Search file
         System.out.println(root.search("report.txt").getName());
+        System.out.println(root.search("project1.doc").getName());
 
         // Remove a file at level 1
         root.remove(report);
